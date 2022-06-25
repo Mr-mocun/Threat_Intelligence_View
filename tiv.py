@@ -725,7 +725,7 @@ if __name__ == '__main__':
                                                           /____/                                                 
 
     作者：m0cun      版本：1.0.1-Alpha
-    G i t h u b:      https://github.com/Mr-mocun/tig
+    G i t h u b:      https://github.com/Mr-mocun/Threat_Intelligence_View/tree/dev
     fork   form:      https://github.com/wgpsec/tig
     [/bold blue]''')
     parser = argparse.ArgumentParser()

@@ -35,51 +35,30 @@
 
         https://github.com/wgpsec/tig
 
-以下为原项目 readme 文档：
+以下部分内容修改自原项目 readme 文档：
 ***
 
 ## 工具介绍
 
-**国外：[https://github.com/wgpsec/tig](https://github.com/wgpsec/tig)**
-
-**国内：[https://gitee.com/wgpsec/tig](https://gitee.com/wgpsec/tig)**
-
 当前该工具获取 IP 的信息有以下几个角度：
 
-1. 微步情报信息：获取到 IP 的标签信息、是否恶意 IP、地理位置等等
+1. 微步情报信息 / 绿盟威胁情报信息：获取到 IP 的标签信息、是否恶意 IP、地理位置等等
 
 2. IP 域名反查：获取到 IP 对应的域名，从而根据域名查询到备案信息和 Whois 信息
 
 3. Fofa 信息：获取到 IP 可能开放的端口和 IP 对应的域名信息
 
-4. Ping 存活检测：判断 IP 是否存活
-
-假设在获取到的信息最大化情况下，通过 TIG 可以一键发现 IP 对应的情报标签、域名、域名注册人、备案邮箱、备案号、备案单位、域名注册商、IP 开放端口、地理位置等等信息。
-
-![](./img/TIG.png)
-
-后续将集成更多模块，如有好的建议或遇到 Bug 欢迎提 issue
+假设在获取到的信息最大化情况下，通过 `Threat Intelligence view` 可以一键发现 IP 对应的情报标签、域名、域名注册人、备案邮箱、备案号、备案单位、域名注册商、IP 开放端口、地理位置等等信息。
 
 # 0x01 安装
 
 需要 python3.6 或更高版本支持
 
-**国外**
-
 ```
-git clone https://github.com/wgpsec/tig.git
-cd  tig
+git clone https://github.com/Mr-mocun/Threat_Intelligence_View.git
+cd  Threat_Intelligence_View
 pip3 install -r requirements.txt
-python3 tig.py
-```
-
-**国内**
-
-```
-git clone https://gitee.com/wgpsec/tig.git
-cd tig
-pip3 install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-python3 tig.py
+python3 tiv.py -v
 ```
 
 # 0x02 使用
@@ -90,12 +69,12 @@ UNIX 安装指南：
 
 ```bash
 cd /opt/
-git clone https://github.com/wgpsec/tig.git
+git clone https://github.com/Mr-mocun/Threat_Intelligence_View.git
 echo '#!/bin/bash
-cd /opt/tig
-python3 tig.py $@' > /usr/bin/tig
-chmod +x /usr/bin/tig
-tig -v
+cd /opt/Threat_Intelligence_View
+python3 tiv.py $@' > /usr/bin/tiv
+chmod +x /usr/bin/tiv
+tiv -v
 ```
 
 工具命令如下：
@@ -111,38 +90,37 @@ tig -v
 
 ## 配置文件
 
-如果是第一次使用本工具，在启动时会提示输入您的微步 API 和 Fofa API
+如果是第一次使用本工具，在启动时会提示输入您的微步 API、绿盟 API（需要自行获取）和 Fofa 邮箱及 API
 
-![](./img/tig2.png)
+![](./img/01_tiv_config%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
 
-查看自己微步 API  Key 的地址为：[https://x.threatbook.cn/nodev4/vb4/myAPI](https://x.threatbook.cn/nodev4/vb4/myAPI)，免费账户有每天 50 次的限额。
+查看自己微步 API  Key 的地址为：[https://x.threatbook.cn/v5/myApi](https://x.threatbook.cn/v5/myApi)，免费账户有每天 50 次的限额，通过添加多个 api key 可突破每日 50 次请求限制。
 
-查看自己 Fofa API Key 的地址为：[https://fofa.so/personalData](https://fofa.so/personalData)，普通会员每次免费前 100 条，高级会员每次免费前 10000 条。
+查看自己 Fofa API Key 的地址为：[https://fofa.info/userInfo](https://fofa.info/userInfo)，普通会员每次免费前 100 条，高级会员每次免费前 10000 条。
 
-如果之前使用过历史版本，程序会自动根据原来的配置文件生成当前的配置文件，无需手动更改。
+## 基础用法
 
- ![](./img/tig3.png)
+```bash
+python3 tiv.py -i x.x.x.x
+python3 tiv.py -i x.x.x.x -o xxxx
+python3 tiv.py -f ip.txt
+```
 
-## 示例
+例如这里要获取某个 IP 的信息，直接使用 -i 命令即可，默认单一 ip 不保存文件，可通过 -o 指定导出文件位置。
 
-例如这里要获取某个 IP 的信息，直接使用 -i 命令即可，结果会默认保存到 output 文件夹内，或者 -o 指定导出文件位置。
+![](./img/02_tiv_single_ip.jpg)
 
-![](./img/tig4.png)
+或者直接指定一个 IP 列表，结果自动保存到 output 文件夹中，以当前时间 + ip 个数方式命令的 `.xlsx` 表格中。
 
-或者直接指定一个 IP 列表，结果导出到 result.xlsx 文件里。
-
-![](./img/tig5.png)
+![](./img/03_tiv_ip_file.jpg)
 
 导出表格文件信息如下
 
-![](./img/tig6.png)
+![](./img/04_tiv_outfile_sheet1.jpg)
+![](./img/04_tiv_outfile_sheet2.jpg)
 
 # 0x03 最后
 
 如果各位师傅在使用工具的过程中发现存在 bug 或者有好的建议，欢迎多多提 issue。
 
 如果感觉使用起来还不错，欢迎师傅赏个 Star！！！！
-
-[![Stargazers over time](https://starchart.cc/wgpsec/tig.svg)](https://starchart.cc/wgpsec/tig)
-
-![](./img/wechat.png)

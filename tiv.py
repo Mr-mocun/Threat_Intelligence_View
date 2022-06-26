@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # _*_ coding:utf-8 _*_
-# Team: WgpSec
-# Team Github : https://github.com/wgpsec
-# Author : TeamsSix
-# Author blog : https://www.teamssix.com
+# Author : m0cun
 
 import re
 import os
@@ -719,11 +716,18 @@ def main(ip, config_path, proxies):
 
 if __name__ == '__main__':
     console.print('''[bold blue]
-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+
-|T|h|r|e|a|t| |I|n|t|e|l|l|i|g|e|n|c|e| |G|a|t|h|e|r|i|n|g|
-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+
-    团队：狼组安全团队   作者：TeamsSix    版本：0.5.5       
-    ''')
+    
+  ________                    __     ____      __       _____                               _    ___             
+ /_  __/ /_  ________  ____ _/ /_   /  _/___  / /____  / / (_)___ ____  ____  ________     | |  / (_)__ _      __
+  / / / __ \/ ___/ _ \/ __ `/ __/   / // __ \/ __/ _ \/ / / / __ `/ _ \/ __ \/ ___/ _ \    | | / / / _ \ | /| / /
+ / / / / / / /  /  __/ /_/ / /_   _/ // / / / /_/  __/ / / / /_/ /  __/ / / / /__/  __/    | |/ / /  __/ |/ |/ / 
+/_/ /_/ /_/_/   \___/\__,_/\__/  /___/_/ /_/\__/\___/_/_/_/\__, /\___/_/ /_/\___/\___/     |___/_/\___/|__/|__/  
+                                                          /____/                                                 
+
+    作者：m0cun      版本：1.0.1-Alpha
+    G i t h u b:      https://github.com/Mr-mocun/Threat_Intelligence_View/tree/dev
+    fork   form:      https://github.com/wgpsec/tig
+    [/bold blue]''')
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', dest='config', help='指定配置文件，默认 ./config.ini')
     parser.add_argument('-f', dest='file', help='指定 IP 文本，一行一个')
@@ -793,7 +797,7 @@ if __name__ == '__main__':
                 os.mkdir(f"{root_path}/output")
             current_time = time.strftime("%Y年%m月%d日_%H时%M分%S秒")
             filename_suffix = f"_{count}个 IP.xlsx"
-            output_filename = f"{root_path}/output/tig_{current_time}{filename_suffix}"
+            output_filename = f"{root_path}/output/tiv_{current_time}{filename_suffix}"
 
         try:
             # 威胁情报数据转换成 excel DataFrame 数据

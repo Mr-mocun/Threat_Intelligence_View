@@ -176,4 +176,4 @@ def threatbook(ip, api_key_chain, table):
             except Exception:
                 console.log(f"[red][EROR] 查询 {ip} 的微步信息程序发生错误，错误信息：{traceback.format_exc()}[/red]")
                 return table, ['N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A']
-    console.log("[red][ERRO] 微步 API 所有 key 已使用完毕！微步信息查询失败。[/red]")
+    console.log("[red][ERRO] 微步 API 所有 key 已使用完毕！ 微步信息查询失败。[/red]")

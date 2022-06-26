@@ -1,5 +1,5 @@
 requests
 pandas
 rich
-PrettyTable
 python-whois
+PrettyTable

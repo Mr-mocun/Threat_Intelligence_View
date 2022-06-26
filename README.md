@@ -38,35 +38,7 @@
 以下为原项目 readme 文档：
 ***
 
-<h1 align="center">TIG  威胁情报收集 🪓</h1>
-
-<https://github.com/Mr-mocun/Threat_Intelligence_View/tree/dev>
-
-# Updata
-
-## 更新时间：2022 年 06 月 25 日
-
-### 1. 功能优化
-
-1. 添加了 Nsfocus 威胁情报解析结果，但 API 需要自行获取；
-
-2. 优化了配置文件，支持添加多个微步 API key，第一个到达上限后，继续读取下一个，突破了微步 API 每日 50 次的限制；
-
-3. 优化了配置文件，通过对 `Nsfocus_enable`、`FOFA_enable` 、`Revrse_IP_Lookup_enable` 使能开关控制，自定义调整查询结果。
-
-4. 删除通过请求 [api.hackertarget.com](https://api.hackertarget.com/reverseiplookup/?q=x.x.x.x) 来获取 ip 反查域名，由于请求次数每日免费仅 10 次，因此删除该链接；
-
-5. 删除 IP 存活判断。通过 ping 来判断 IP 存活的方式，可靠性不高，因此删除函数调用，但保留了该部分函数；
-
-求 Star ⭐️ ~~~~
-
 ## 工具介绍
-
-1. 修改了 ip 反查域名时，若包含多个域名列表时，域名信息（备案信息，注册人，注册商等）仅保存最后一个域名信息。域名相关信息保存至 sheet2（域名信息）中。
-
-2. 修复其他报错情况（如 json 解析异常，whois 返回值未考虑数组等问题），优化进度条被打断等问题。
-
-**fork from：**
 
 **国外：[https://github.com/wgpsec/tig](https://github.com/wgpsec/tig)**
 

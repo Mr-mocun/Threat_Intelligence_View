@@ -520,7 +520,7 @@ def main(ip, config_path, proxies):
     nsfocus_enable = cfg.get('Api Config', 'Nsfocus_enable').strip("'")
 
     # 判断是否查询威胁情报，若无则不打印表格
-    if threabook_enable or nsfocus_enable:
+    if threabook_enable == "True" or nsfocus_enable == "True":
         # 初始化表格，设置表格标题
         table = Table(show_lines=True)
         table.add_column('情报来源', justify="center")
@@ -808,7 +808,7 @@ if __name__ == '__main__':
             if not os.path.exists(f"{root_path}/output"):
                 os.mkdir(f"{root_path}/output")
             current_time = time.strftime("%Y年%m月%d日_%H时%M分%S秒")
-            filename_suffix = f"_{count}个 IP.xlsx"
+            filename_suffix = f"_{count}个IP.xlsx"
             output_filename = f"{root_path}/output/tiv_{current_time}{filename_suffix}"
 
         try:

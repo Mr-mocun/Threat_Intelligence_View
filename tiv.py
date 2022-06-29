@@ -659,7 +659,6 @@ def main(ip, config_path, proxies):
         domain_info_data['注册人'] = []
         domain_info_data['注册邮箱'] = []
         domain_info_data['注册商'] = []
-        domain_info_data['注册商'] = []
         domain_info_data['注册时间'] = []
         domain_info_data['到期时间'] = []
         # json 解析异常的域名
@@ -685,6 +684,7 @@ def main(ip, config_path, proxies):
                         domain_info_data['ip'].append(ip)
                     else:
                         domain_info_data[i].append(domain_info_dict[i])
+
             # 实际测试，域名个数大于 3 个，耗时较久，为了更好的交互体验，添加进度条
             if len(ip_reverse_domain) > 3:
                 for domain in track(ip_reverse_domain, description='域名信息查询进度：'):
@@ -761,7 +761,20 @@ if __name__ == '__main__':
         proxies = {'http': None, 'https': None}
 
     # 用于保存 excel 数据
-    pools = []
+    ti_pools = []
+    domain_info_pool = {
+        'ip': [],
+        '域名': [],
+        '标题': [],
+        '备案类型': [],
+        '备案名称': [],
+        '备案号': [],
+        '注册人': [],
+        '注册邮箱': [],
+        '注册商': [],
+        '注册时间': [],
+        '到期时间': []
+    }
 
     # 保存至 excel 中
     def write_file_to_output(threatbook_result, nsfocus_result, domain_info_result):
@@ -792,7 +805,6 @@ if __name__ == '__main__':
                 console.log(f"[red][EROR] {output_filename} 文件已存在 [/red]")
                 sys.exit()
         else:
-
             if not os.path.exists(f"{root_path}/output"):
                 os.mkdir(f"{root_path}/output")
             current_time = time.strftime("%Y年%m月%d日_%H时%M分%S秒")
@@ -801,7 +813,7 @@ if __name__ == '__main__':
 
         try:
             # 威胁情报数据转换成 excel DataFrame 数据
-            ti_df = DataFrame(pools, columns=ti_columns)
+            ti_df = DataFrame(ti_pools, columns=ti_columns)
             # 域名信息转换成 excel DataFrame 数据
             domain_df = DataFrame(domain_info_result, columns=domain_colums)
             # 以下方法可实现将两份数据分别写入不同的 sheet 中，否则会被覆盖
@@ -816,15 +828,16 @@ if __name__ == '__main__':
         except Exception:
             console.log(f"[red][EROR] 保存数据发生程序错误，错误信息：{traceback.format_exc()}[/red]")
 
+
     # 在实际使用中发现，单一 IP 需要保存信息的情况并不多，因此，设置 output 与 ip 参数同时设置时才保存结果
     if args.ip and args.output:
         ip = args.ip
         console.rule(f"[yellow] 正在查询 {ip} 的情报信息 [/yellow]", style="yellow")
         threatbook_result, nsfocus_result, domain_info_result = main(ip, config_path, proxies)
         if threatbook_result:
-            pools.append(threatbook_result)
+            ti_pools.append(threatbook_result)
         if nsfocus_result:
-            pools.append(nsfocus_result)
+            ti_pools.append(nsfocus_result)
         write_file_to_output(threatbook_result, nsfocus_result, domain_info_result)
 
     # 否则，单一 IP 时，不保存结果，仅打印信息
@@ -847,10 +860,14 @@ if __name__ == '__main__':
             console.rule(f"[yellow][INFO] 正在查询 {ip} 的情报信息，剩余 {count - index} 个 IP[/yellow]", style="yellow")
             threatbook_result, nsfocus_result, domain_info_result = main(ip, config_path, proxies)
             if threatbook_result:
-                pools.append(threatbook_result)
+                ti_pools.append(threatbook_result)
             if nsfocus_result:
-                pools.append(nsfocus_result)
-        write_file_to_output(threatbook_result, nsfocus_result, domain_info_result)
+                ti_pools.append(nsfocus_result)
+            if domain_info_result:
+                for k, v in domain_info_result.items():
+                    domain_info_pool[k].extend(v)
+        write_file_to_output(threatbook_result, nsfocus_result, domain_info_pool)
     else:
         console.log('[yellow][INFO] 请输入待扫描的 IP 或 IP 列表文件 [/yellow]')
         sys.exit()
+

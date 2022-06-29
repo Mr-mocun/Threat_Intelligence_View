@@ -724,7 +724,7 @@ if __name__ == '__main__':
 /_/ /_/ /_/_/   \___/\__,_/\__/  /___/_/ /_/\__/\___/_/_/_/\__, /\___/_/ /_/\___/\___/     |___/_/\___/|__/|__/  
                                                           /____/                                                 
 
-    作者：m0cun      版本：1.0.1-Alpha
+    作者：m0cun      版本：1.0.2-Alpha
     G i t h u b:      https://github.com/Mr-mocun/Threat_Intelligence_View/tree/dev
     fork   form:      https://github.com/wgpsec/tig
     [/bold blue]''')
